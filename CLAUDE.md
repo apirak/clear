@@ -81,6 +81,18 @@ The DESIGN.md contains the canonical design tokens. Key points:
 
 `ai-knowledges/adonisjs7/` contains AdonisJS 7 reference docs (auth, testing, routing, controllers, ORM, etc.). Read these when working on the backend — they cover patterns and APIs specific to AdonisJS 7 that may differ from earlier versions.
 
+## Design Context
+
+See [`.impeccable.md`](.impeccable.md) for full design context. Summary:
+
+- **Brand personality**: Modern, Academic, Professional. Premium edtech tool.
+- **Emotional goals**: Confidence, Clarity, Trust. Calm and predictable.
+- **Color palette**: Teal/aqua (sea-ink, lagoon, palm) from current `styles.css` — NOT the indigo/emerald in DESIGN.md.
+- **References**: Intercom/Zendesk (inbox triage patterns), Linear/Notion (minimal premium feel).
+- **Anti-references**: Consumer chat apps (too casual), traditional LMS (cluttered/dated).
+- **Design principles**: Triage-first, Academic authority, Calm confidence, Bilingual clarity, Progressive density.
+- **A11y target**: WCAG AA.
+
 ## Cursor Rules
 
 From `apps/frontend/.cursorrules`: Use latest Shadcn for new components: `pnpm dlx shadcn@latest add <component>`.
