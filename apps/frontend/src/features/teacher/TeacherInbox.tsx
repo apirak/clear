@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  faBars,
   faCheck,
   faCircleQuestion,
   faClipboardList,
@@ -8,79 +9,301 @@ import {
   faPaperPlane,
   faPaperclip,
   faSquareRootVariable,
+  faXmark,
   faUser,
   faWandMagicSparkles,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { tickets, chatMessages, questionMeta, type Ticket, type ChatMessage } from '../shared/mock-data'
 
+type TabId = 'chat' | 'help' | 'user'
+
 export function TeacherInbox() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
+  const [activeTab, setActiveTab] = useState<TabId>('chat')
+  const [showMobileTicketList, setShowMobileTicketList] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [showMobileMeta, setShowMobileMeta] = useState(false)
+
+  const handleSelectTicket = (ticket: Ticket) => {
+    setSelectedTicket(ticket)
+    setShowMobileTicketList(false)
+  }
+
+  const handleBackToList = () => {
+    setSelectedTicket(null)
+    setShowMobileTicketList(true)
+    setShowMobileMeta(false)
+  }
+
+  const handleMenuSelect = (tab: TabId) => {
+    setActiveTab(tab)
+    setMenuOpen(false)
+    if (tab !== 'chat') {
+      setShowMobileTicketList(true)
+      setSelectedTicket(null)
+    }
+  }
 
   return (
-    <div className="h-screen overflow-hidden bg-[#F3F4F6] p-2 dark:bg-[#0F1117] font-['Sarabun',sans-serif]">
-      <div className="flex h-full gap-2">
-        <aside className="hidden lg:flex w-16 shrink-0 flex-col items-center gap-2 py-3">
+    <div className="h-dvh overflow-hidden bg-[#F3F4F6] dark:bg-[#0F1117] font-['Sarabun',sans-serif] flex flex-col">
+      {/* Desktop sidebar */}
+      <div className="hidden lg:flex flex-1 min-h-0 gap-2 p-2">
+        <aside className="flex w-16 shrink-0 flex-col items-center gap-2 py-3">
           <div className="text-sm font-bold text-indigo-600 mb-6">Clear</div>
-          <NavIcon active icon="chat" label="Chat" />
-          <NavIcon icon="help" label="Help" />
+          <NavIcon active={activeTab === 'chat'} icon="chat" label="Chat" onClick={() => setActiveTab('chat')} />
+          <NavIcon active={activeTab === 'help'} icon="help" label="Help" onClick={() => setActiveTab('help')} />
           <div className="flex-1" />
-          <NavIcon icon="user" label="Account" />
+          <NavIcon active={activeTab === 'user'} icon="user" label="Account" onClick={() => setActiveTab('user')} />
         </aside>
 
-        <div className="flex min-h-0 w-60 lg:w-75 shrink-0 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#1A1D27]">
-          <div className="flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3 dark:border-[#2D3148]">
-            <span className="text-sm font-semibold text-[#111827] dark:text-[#E5E7EB]">คำถาม</span>
-            <span className="text-xs text-[#6B7280]">{tickets.filter((t) => t.status === 'waiting').length} รอตอบ</span>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            {tickets.map((ticket) => (
-              <TicketCard
-                key={ticket.id}
-                ticket={ticket}
-                active={selectedTicket?.id === ticket.id}
-                onClick={() => setSelectedTicket(ticket)}
-              />
-            ))}
-          </div>
-        </div>
+        <DesktopContent activeTab={activeTab} selectedTicket={selectedTicket} onSelectTicket={setSelectedTicket} />
+      </div>
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#22263A]">
-          {selectedTicket ? (
-            <>
-              <ChatHead ticket={selectedTicket} />
-              <ChatBody messages={chatMessages[selectedTicket.id] ?? []} />
-              <ReplyComposer />
-            </>
+      {/* Mobile content */}
+      <div className="flex flex-1 min-h-0 lg:hidden">
+        {activeTab === 'chat' ? (
+          showMobileTicketList ? (
+            <MobileTicketList
+              onMenuOpen={() => setMenuOpen(true)}
+              selectedTicket={selectedTicket}
+              onSelectTicket={handleSelectTicket}
+            />
           ) : (
-            <div className="flex flex-1 items-center justify-center text-[#9CA3AF]">
-              <div className="text-center">
-                <div className="mb-2 text-4xl">
-                  <FontAwesomeIcon icon={faComments} />
-                </div>
-                <div className="text-sm">เลือกคำถามเพื่อเริ่มตอบ</div>
-              </div>
+            <MobileChatView
+              ticket={selectedTicket}
+              onBack={handleBackToList}
+              onToggleMeta={() => setShowMobileMeta((v) => !v)}
+              showMeta={showMobileMeta}
+            />
+          )
+        ) : activeTab === 'help' ? (
+          <MobilePlaceholder icon={faCircleQuestion} text="Help Center" />
+        ) : (
+          <MobilePlaceholder icon={faUser} text="Account" />
+        )}
+      </div>
+
+      {/* Mobile hamburger menu overlay */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setMenuOpen(false)} />
+          <div className="relative w-64 h-full bg-white dark:bg-[#1A1D27] shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-4 border-b border-[#E5E7EB] dark:border-[#2D3148]">
+              <span className="text-sm font-bold text-indigo-600">Clear</span>
+              <button onClick={() => setMenuOpen(false)} className="w-8 h-8 flex items-center justify-center text-[#6B7280]">
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
             </div>
-          )}
+            <nav className="flex flex-col py-2">
+              {([
+                { id: 'chat' as TabId, icon: faComments, label: 'Chat' },
+                { id: 'help' as TabId, icon: faCircleQuestion, label: 'Help' },
+                { id: 'user' as TabId, icon: faUser, label: 'Account' },
+              ]).map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleMenuSelect(tab.id)}
+                  className={`flex items-center gap-3 px-4 py-3 text-sm ${activeTab === tab.id ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10' : 'text-[#374151] dark:text-[#E5E7EB]'}`}
+                >
+                  <FontAwesomeIcon icon={tab.icon} className="w-5" />
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+          </div>
         </div>
+      )}
+    </div>
+  )
+}
 
-        <div className="hidden md:flex w-64 lg:w-80 shrink-0 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#1A1D27]">
-          {selectedTicket && questionMeta[selectedTicket.id] ? (
-            <MetadataPanel meta={questionMeta[selectedTicket.id]} />
-          ) : (
-            <MetadataEmptyState />
-          )}
+function MobileTicketList({ onMenuOpen, selectedTicket, onSelectTicket }: {
+  onMenuOpen: () => void
+  selectedTicket: Ticket | null
+  onSelectTicket: (t: Ticket) => void
+}) {
+  return (
+    <div className="flex flex-1 flex-col overflow-hidden p-2 pb-0">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#1A1D27]">
+        <div className="flex items-center justify-between border-b border-[#E5E7EB] px-3 py-3 dark:border-[#2D3148]">
+          <div className="flex items-center gap-2">
+            <button onClick={onMenuOpen} className="w-8 h-8 flex items-center justify-center text-[#6B7280] hover:text-[#111827] dark:hover:text-[#E5E7EB]">
+              <FontAwesomeIcon icon={faBars} />
+            </button>
+            <span className="text-sm font-semibold text-[#111827] dark:text-[#E5E7EB]">คำถาม</span>
+          </div>
+          <span className="text-xs text-[#6B7280]">{tickets.filter((t) => t.status === 'waiting').length} รอตอบ</span>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {tickets.map((ticket) => (
+            <TicketCard
+              key={ticket.id}
+              ticket={ticket}
+              active={selectedTicket?.id === ticket.id}
+              onClick={() => onSelectTicket(ticket)}
+            />
+          ))}
         </div>
       </div>
     </div>
   )
 }
 
-function NavIcon({ icon, label, active }: { icon: 'chat' | 'help' | 'user'; label: string; active?: boolean }) {
+function MobileChatView({ ticket, onBack, onToggleMeta, showMeta }: {
+  ticket: Ticket | null
+  onBack: () => void
+  onToggleMeta: () => void
+  showMeta: boolean
+}) {
+  return (
+    <>
+      <div className="flex flex-1 flex-col overflow-hidden p-2 pb-0">
+        <div className="flex flex-1 min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#22263A]">
+          {ticket ? (
+            <>
+              <MobileChatHead ticket={ticket} onBack={onBack} onToggleMeta={onToggleMeta} showMeta={showMeta} />
+              <ChatBody messages={chatMessages[ticket.id] ?? []} />
+              <ReplyComposer />
+            </>
+          ) : (
+            <div className="flex flex-1 items-center justify-center text-[#9CA3AF]">
+              <div className="text-center">
+                <div className="mb-2 text-4xl"><FontAwesomeIcon icon={faComments} /></div>
+                <div className="text-sm">เลือกคำถามเพื่อเริ่มตอบ</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile metadata slide-up panel */}
+      {showMeta && ticket && questionMeta[ticket.id] && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div className="absolute inset-0 bg-black/40" onClick={onToggleMeta} />
+          <div className="absolute inset-x-0 bottom-0 max-h-[70vh] bg-white dark:bg-[#1A1D27] rounded-t-2xl shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[#E5E7EB] dark:border-[#2D3148]">
+              <span className="text-sm font-semibold text-[#111827] dark:text-[#E5E7EB]">เนื้อหา</span>
+              <button onClick={onToggleMeta} className="w-7 h-7 flex items-center justify-center text-[#6B7280]">
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              <MetadataPanel meta={questionMeta[ticket.id]!} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+function DesktopContent({ activeTab, selectedTicket, onSelectTicket }: { activeTab: TabId; selectedTicket: Ticket | null; onSelectTicket: (t: Ticket) => void }) {
+  if (activeTab === 'help') {
+    return <div className="flex flex-1 items-center justify-center text-[#9CA3AF] text-sm">Help Center</div>
+  }
+  if (activeTab === 'user') {
+    return <div className="flex flex-1 items-center justify-center text-[#9CA3AF] text-sm">Account</div>
+  }
+
+  return (
+    <>
+      <div className="flex min-h-0 w-60 lg:w-75 shrink-0 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#1A1D27]">
+        <div className="flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3 dark:border-[#2D3148]">
+          <span className="text-sm font-semibold text-[#111827] dark:text-[#E5E7EB]">คำถาม</span>
+          <span className="text-xs text-[#6B7280]">{tickets.filter((t) => t.status === 'waiting').length} รอตอบ</span>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {tickets.map((ticket) => (
+            <TicketCard
+              key={ticket.id}
+              ticket={ticket}
+              active={selectedTicket?.id === ticket.id}
+              onClick={() => onSelectTicket(ticket)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#22263A]">
+        {selectedTicket ? (
+          <>
+            <ChatHead ticket={selectedTicket} />
+            <ChatBody messages={chatMessages[selectedTicket.id] ?? []} />
+            <ReplyComposer />
+          </>
+        ) : (
+          <div className="flex flex-1 items-center justify-center text-[#9CA3AF]">
+            <div className="text-center">
+              <div className="mb-2 text-4xl"><FontAwesomeIcon icon={faComments} /></div>
+              <div className="text-sm">เลือกคำถามเพื่อเริ่มตอบ</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="hidden md:flex w-64 lg:w-80 shrink-0 flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm dark:border-[#2D3148] dark:bg-[#1A1D27]">
+        {selectedTicket && questionMeta[selectedTicket.id] ? (
+          <MetadataPanel meta={questionMeta[selectedTicket.id]} />
+        ) : (
+          <MetadataEmptyState />
+        )}
+      </div>
+    </>
+  )
+}
+
+function MobileChatHead({ ticket, onBack, onToggleMeta, showMeta }: { ticket: Ticket; onBack: () => void; onToggleMeta: () => void; showMeta: boolean }) {
+  const [resolved, setResolved] = useState(false)
+  return (
+    <div className="shrink-0 flex items-center justify-between border-b border-[#E5E7EB] px-3 py-2.5 dark:border-[#2D3148]">
+      <div className="flex items-center gap-2 min-w-0">
+        <button onClick={onBack} className="w-7 h-7 shrink-0 flex items-center justify-center text-[#6B7280] hover:text-[#111827] dark:hover:text-[#E5E7EB]">
+          <FontAwesomeIcon icon={faComments} />
+        </button>
+        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-medium shrink-0">{ticket.studentAvatar}</div>
+        <div className="min-w-0">
+          <div className="text-sm font-semibold text-[#111827] dark:text-[#E5E7EB] truncate">{ticket.studentName}</div>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 shrink-0">
+        <button
+          onClick={onToggleMeta}
+          className={`w-7 h-7 rounded-md flex items-center justify-center text-xs ${showMeta ? 'bg-indigo-500/10 text-indigo-600' : 'text-[#6B7280] hover:bg-[#F3F4F6] dark:hover:bg-[#2D3148]'}`}
+        >
+          <FontAwesomeIcon icon={faClipboardList} />
+        </button>
+        <button
+          onClick={() => setResolved(true)}
+          disabled={resolved}
+          className={`text-[10px] px-2 py-1 rounded-md border ${resolved ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'border-emerald-300 text-emerald-600 hover:bg-emerald-50'}`}
+        >
+          <span className="inline-flex items-center gap-1">
+            <FontAwesomeIcon icon={faCheck} />
+            {resolved ? 'ปิดแล้ว' : 'ปิด'}
+          </span>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function MobilePlaceholder({ icon, text }: { icon: typeof faCircleQuestion; text: string }) {
+  return (
+    <div className="flex flex-1 items-center justify-center text-[#9CA3AF] p-2">
+      <div className="text-center">
+        <div className="mb-2 text-3xl"><FontAwesomeIcon icon={icon} /></div>
+        <div className="text-sm">{text}</div>
+      </div>
+    </div>
+  )
+}
+
+function NavIcon({ icon, label, active, onClick }: { icon: 'chat' | 'help' | 'user'; label: string; active?: boolean; onClick?: () => void }) {
   const icons = { chat: faComments, help: faCircleQuestion, user: faUser } as const
 
   return (
-    <button className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg text-xs ${active ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10' : 'text-[#6B7280] hover:bg-[#F3F4F6] dark:hover:bg-[#22263A]'}`}>
+    <button onClick={onClick} className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg text-xs ${active ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10' : 'text-[#6B7280] hover:bg-[#F3F4F6] dark:hover:bg-[#22263A]'}`}>
       <span className="text-base leading-none">
         <FontAwesomeIcon icon={icons[icon]} />
       </span>
@@ -113,7 +336,7 @@ function TicketCard({ ticket, active, onClick }: { ticket: Ticket; active: boole
 function ChatHead({ ticket }: { ticket: Ticket }) {
   const [resolved, setResolved] = useState(false)
   return (
-    <div className="flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3 dark:border-[#2D3148]">
+    <div className="shrink-0 flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3 dark:border-[#2D3148]">
       <div className="flex items-center gap-3 min-w-0">
         <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-medium shrink-0">{ticket.studentAvatar}</div>
         <div className="min-w-0">
@@ -137,7 +360,7 @@ function ChatHead({ ticket }: { ticket: Ticket }) {
 
 function ChatBody({ messages }: { messages: ChatMessage[] }) {
   return (
-    <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-3">
       {messages.map((msg) => {
         const isTeacher = msg.sender === 'teacher'
         const isAI = msg.sender === 'ai'
@@ -166,7 +389,7 @@ function ChatBody({ messages }: { messages: ChatMessage[] }) {
 
 function ReplyComposer() {
   return (
-    <div className="border-t border-[#E5E7EB] dark:border-[#2D3148] p-3">
+    <div className="shrink-0 border-t border-[#E5E7EB] dark:border-[#2D3148] p-3">
       <div className="flex gap-2 mb-2">
         <textarea className="flex-1 resize-none rounded-lg border border-[#E5E7EB] dark:border-[#2D3148] bg-white dark:bg-[#1A1D27] text-sm p-3 text-[#111827] dark:text-[#E5E7EB] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-indigo-500" rows={1} placeholder="พิมพ์ข้อความตอบน้อง..." />
         <button className="self-end w-9 h-9 bg-indigo-600 text-white rounded-lg flex items-center justify-center hover:bg-indigo-700 shrink-0">

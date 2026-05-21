@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { VariantA } from '../prototype/variant-a'
+import { TeacherInbox } from '../features/teacher/TeacherInbox'
 
 export const Route = createFileRoute('/prototype/teacher-view')({
   component: PrototypePage,
 })
 
 function PrototypePage() {
-  return <VariantA />
+  return <TeacherInbox />
 }

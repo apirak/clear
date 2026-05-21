@@ -16,7 +16,7 @@ export const Route = createRootRoute({
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        content: 'width=device-width, initial-scale=1, viewport-fit=cover',
       },
       {
         title: 'TanStack Start Starter',
@@ -35,6 +35,7 @@ export const Route = createRootRoute({
 function RootDocument({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const isPrototypeRoute = pathname.startsWith('/prototype')
+  const isFullscreenRoute = pathname === '/teacher'
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -43,20 +44,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        {!isPrototypeRoute && <Header />}
+        {!isPrototypeRoute && !isFullscreenRoute && <Header />}
         {children}
-        {!isPrototypeRoute && <Footer />}
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        {!isPrototypeRoute && !isFullscreenRoute && <Footer />}
+        {import.meta.env.DEV && (
+          <TanStackDevtools
+            config={{
+              position: 'bottom-right',
+            }}
+            plugins={[
+              {
+                name: 'Tanstack Router',
+                render: <TanStackRouterDevtoolsPanel />,
+              },
+            ]}
+          />
+        )}
         <Scripts />
       </body>
     </html>
