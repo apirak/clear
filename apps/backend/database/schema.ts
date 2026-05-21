@@ -7,6 +7,262 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class UserIdGeneratorSchema extends BaseModel {
+  static $columns = ['checksumsubstitutionpattern', 'id', 'pattern', 'runningnumber', 'runningnumberlength', 'runningsubstitutionpattern'] as const
+  $columns = UserIdGeneratorSchema.$columns
+  @column()
+  declare checksumsubstitutionpattern: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare pattern: string | null
+  @column()
+  declare runningnumber: number | null
+  @column()
+  declare runningnumberlength: number | null
+  @column()
+  declare runningsubstitutionpattern: string | null
+}
+
+export class UserPdpaSchema extends BaseModel {
+  static $columns = ['apppermissionid', 'createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'name', 'order', 'reportfields', 'updatedat', 'updatedby'] as const
+  $columns = UserPdpaSchema.$columns
+  @column()
+  declare apppermissionid: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+  @column()
+  declare order: string | null
+  @column()
+  declare reportfields: any | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AaaEventMessageSchema extends BaseModel {
+  static $columns = ['createdat', 'data', 'id', 'metadata'] as const
+  $columns = AaaEventMessageSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare data: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare metadata: string | null
+}
+
+export class AaaFileImportJobSchema extends BaseModel {
+  static $columns = ['container', 'createdat', 'createdby', 'deletedat', 'deletedby', 'detail', 'id', 'name', 'originalfilename', 'provider', 'refcode', 'status', 'type', 'updatedat', 'updatedby'] as const
+  $columns = AaaFileImportJobSchema.$columns
+  @column()
+  declare container: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare detail: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+  @column()
+  declare originalfilename: string | null
+  @column()
+  declare provider: string | null
+  @column()
+  declare refcode: string | null
+  @column()
+  declare status: string | null
+  @column()
+  declare type: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AaaModuleInfoSchema extends BaseModel {
+  static $columns = ['content', 'modulecode', 'name'] as const
+  $columns = AaaModuleInfoSchema.$columns
+  @column()
+  declare content: string | null
+  @column({ isPrimary: true })
+  declare modulecode: string
+  @column()
+  declare name: string
+}
+
+export class AccesstokenSchema extends BaseModel {
+  static $columns = ['created', 'id', 'scopes', 'ttl', 'userid'] as const
+  $columns = AccesstokenSchema.$columns
+  @column.dateTime()
+  declare created: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare scopes: string | null
+  @column()
+  declare ttl: number | null
+  @column()
+  declare userid: string | null
+}
+
+export class AclSchema extends BaseModel {
+  static $columns = ['accesstype', 'id', 'model', 'permission', 'principalid', 'principaltype', 'property'] as const
+  $columns = AclSchema.$columns
+  @column()
+  declare accesstype: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare model: string | null
+  @column()
+  declare permission: string | null
+  @column()
+  declare principalid: string | null
+  @column()
+  declare principaltype: string | null
+  @column()
+  declare property: string | null
+}
+
+export class AnonymousUserSchema extends BaseModel {
+  static $columns = ['createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'updatedat', 'updatedby'] as const
+  $columns = AnonymousUserSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AppPermissionSchema extends BaseModel {
+  static $columns = ['action', 'category', 'createdat', 'createdby', 'deletedat', 'deletedby', 'description', 'id', 'name', 'order', 'updatedat', 'updatedby'] as const
+  $columns = AppPermissionSchema.$columns
+  @column()
+  declare action: string | null
+  @column()
+  declare category: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+  @column()
+  declare order: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AppPermissionRoleItemSchema extends BaseModel {
+  static $columns = ['apppermissionid', 'createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'systempermissionid', 'updatedat', 'updatedby'] as const
+  $columns = AppPermissionRoleItemSchema.$columns
+  @column()
+  declare apppermissionid: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare systempermissionid: number | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AppRoleSchema extends BaseModel {
+  static $columns = ['createdat', 'createdby', 'deletedat', 'deletedby', 'description', 'id', 'level', 'name', 'updatedat', 'updatedby'] as const
+  $columns = AppRoleSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare level: number | null
+  @column()
+  declare name: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class AppRolePermissionItemSchema extends BaseModel {
+  static $columns = ['apppermissionid', 'approleid', 'createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'updatedat', 'updatedby'] as const
+  $columns = AppRolePermissionItemSchema.$columns
+  @column()
+  declare apppermissionid: string | null
+  @column()
+  declare approleid: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -32,8 +288,1447 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class GrademapperSchema extends BaseModel {
+  static $columns = ['refid', 'value'] as const
+  $columns = GrademapperSchema.$columns
+  @column({ isPrimary: true })
+  declare refid: string
+  @column()
+  declare value: string
+}
+
+export class LamsCommonChangeLogSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'description', 'id', 'recordId', 'result', 'resultRevision', 'tableName', 'type', 'updatedAt', 'userId'] as const
+  $columns = LamsCommonChangeLogSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare recordId: string | null
+  @column()
+  declare result: string | null
+  @column()
+  declare resultRevision: number | null
+  @column()
+  declare tableName: string | null
+  @column()
+  declare type: string | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare userId: string | null
+}
+
+export class LamsCourseBinSchema extends BaseModel {
+  static $columns = ['assets', 'courseId', 'createdAt', 'deletedAt', 'id', 'updatedAt'] as const
+  $columns = LamsCourseBinSchema.$columns
+  @column()
+  declare assets: any | null
+  @column()
+  declare courseId: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsCoursePublishJobSchema extends BaseModel {
+  static $columns = ['courseCode', 'courseVariantId', 'courseVariantRevision', 'createdAt', 'deletedAt', 'id', 'status', 'updatedAt'] as const
+  $columns = LamsCoursePublishJobSchema.$columns
+  @column()
+  declare courseCode: string
+  @column()
+  declare courseVariantId: string
+  @column()
+  declare courseVariantRevision: number
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare status: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsCourseVariantRevisionSchema extends BaseModel {
+  static $columns = ['code', 'createdAt', 'decorators', 'deletedAt', 'id', 'isLatest', 'learningModeDetails', 'masterCanvasIdRevision', 'note', 'permalink', 'revision', 'updatedAt'] as const
+  $columns = LamsCourseVariantRevisionSchema.$columns
+  @column()
+  declare code: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare decorators: any
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isLatest: boolean
+  @column()
+  declare learningModeDetails: any
+  @column()
+  declare masterCanvasIdRevision: string
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare revision: number
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsCourseVariantSchema extends BaseModel {
+  static $columns = ['code', 'createdAt', 'decorators', 'deletedAt', 'id', 'learningModeDetails', 'liveStatus', 'masterCanvasIdRevision', 'note', 'permalink', 'rejectReason', 'status', 'updatedAt'] as const
+  $columns = LamsCourseVariantSchema.$columns
+  @column()
+  declare code: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare decorators: any
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare learningModeDetails: any
+  @column()
+  declare liveStatus: string
+  @column()
+  declare masterCanvasIdRevision: string
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare rejectReason: string | null
+  @column()
+  declare status: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsCourseSchema extends BaseModel {
+  static $columns = ['bu', 'courseDescription', 'courseNo', 'courseVersion', 'createdAt', 'deletedAt', 'id', 'title', 'updatedAt'] as const
+  $columns = LamsCourseSchema.$columns
+  @column()
+  declare bu: string
+  @column()
+  declare courseDescription: string | null
+  @column()
+  declare courseNo: string
+  @column()
+  declare courseVersion: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsDomainEventSchema extends BaseModel {
+  static $columns = ['createdAt', 'entityId', 'entityName', 'id', 'metadata', 'name', 'updatedAt', 'userId', 'username'] as const
+  $columns = LamsDomainEventSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare entityId: string
+  @column()
+  declare entityName: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare metadata: any | null
+  @column()
+  declare name: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare userId: string
+  @column()
+  declare username: string
+}
+
+export class LamsLiveSubsectionSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'masterCanvasId', 'masterCanvasRevision', 'subsectionId', 'updatedAt'] as const
+  $columns = LamsLiveSubsectionSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare masterCanvasId: string
+  @column()
+  declare masterCanvasRevision: number
+  @column()
+  declare subsectionId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasAssetRelationSchema extends BaseModel {
+  static $columns = ['assetId', 'assetType', 'createdAt', 'masterCanvasId', 'masterCanvasIdAssetId', 'updatedAt'] as const
+  $columns = LamsMasterCanvasAssetRelationSchema.$columns
+  @column()
+  declare assetId: string
+  @column()
+  declare assetType: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare masterCanvasId: string
+  @column({ isPrimary: true })
+  declare masterCanvasIdAssetId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasBinSchema extends BaseModel {
+  static $columns = ['assets', 'createdAt', 'deletedAt', 'id', 'masterCanvasId', 'updatedAt'] as const
+  $columns = LamsMasterCanvasBinSchema.$columns
+  @column()
+  declare assets: any | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare masterCanvasId: string | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasMasterRecordSchema extends BaseModel {
+  static $columns = ['createdAt', 'masterCanvasId', 'masterRecordRefId', 'masterRecordValueRefId', 'updatedAt'] as const
+  $columns = LamsMasterCanvasMasterRecordSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare masterCanvasId: string
+  @column()
+  declare masterRecordRefId: string
+  @column()
+  declare masterRecordValueRefId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasRevisionAssetSchema extends BaseModel {
+  static $columns = ['assetId', 'createdAt', 'deletedAt', 'masterCanvasIdRevision', 'revision', 'updatedAt'] as const
+  $columns = LamsMasterCanvasRevisionAssetSchema.$columns
+  @column({ isPrimary: true })
+  declare assetId: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare masterCanvasIdRevision: string
+  @column()
+  declare revision: number
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasRevisionMasterRecordSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'masterCanvasIdRevision', 'masterRecordRefId', 'masterRecordValueRefId', 'updatedAt'] as const
+  $columns = LamsMasterCanvasRevisionMasterRecordSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare masterCanvasIdRevision: string
+  @column()
+  declare masterRecordRefId: string
+  @column()
+  declare masterRecordValueRefId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterCanvasRevisionV2Schema extends BaseModel {
+  static $columns = ['code', 'courseVersion', 'coverImageUrl', 'createdAt', 'deletedAt', 'description', 'isLatest', 'items', 'masterCanvasIdRevision', 'note', 'permalink', 'revision', 'title', 'updatedAt', 'videoHeaderUrl'] as const
+  $columns = LamsMasterCanvasRevisionV2Schema.$columns
+  @column()
+  declare code: string
+  @column()
+  declare courseVersion: string
+  @column()
+  declare coverImageUrl: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: any
+  @column()
+  declare isLatest: boolean
+  @column()
+  declare items: any
+  @column({ isPrimary: true })
+  declare masterCanvasIdRevision: string
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare revision: number
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare videoHeaderUrl: string | null
+}
+
+export class LamsMasterCanvasRevisionSchema extends BaseModel {
+  static $columns = ['code', 'courseNo', 'courseVersion', 'coverImageUrl', 'createdAt', 'dayToFinishMilestone', 'deletedAt', 'description', 'isLatest', 'items', 'masterCanvasIdRevision', 'mode', 'note', 'permalink', 'revision', 'title', 'updatedAt', 'videoHeaderUrl'] as const
+  $columns = LamsMasterCanvasRevisionSchema.$columns
+  @column()
+  declare code: string
+  @column()
+  declare courseNo: string
+  @column()
+  declare courseVersion: string
+  @column()
+  declare coverImageUrl: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare dayToFinishMilestone: number | null
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: any
+  @column()
+  declare isLatest: boolean
+  @column()
+  declare items: any
+  @column({ isPrimary: true })
+  declare masterCanvasIdRevision: string
+  @column()
+  declare mode: string
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare revision: number
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare videoHeaderUrl: string | null
+}
+
+export class LamsMasterCanvasV2Schema extends BaseModel {
+  static $columns = ['code', 'courseVersion', 'coverImageUrl', 'createdAt', 'deletedAt', 'description', 'id', 'items', 'note', 'permalink', 'rejectReason', 'status', 'title', 'updatedAt', 'videoHeaderUrl'] as const
+  $columns = LamsMasterCanvasV2Schema.$columns
+  @column()
+  declare code: string
+  @column()
+  declare courseVersion: string | null
+  @column()
+  declare coverImageUrl: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: any
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare items: any
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare rejectReason: string | null
+  @column()
+  declare status: string
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare videoHeaderUrl: string | null
+}
+
+export class LamsMasterCanvasSchema extends BaseModel {
+  static $columns = ['authors', 'bu', 'code', 'courseNo', 'courseType', 'courseVersion', 'coverImageUrl', 'createdAt', 'dayToFinishMilestone', 'deletedAt', 'description', 'grade', 'id', 'items', 'mode', 'note', 'permalink', 'rejectReason', 'status', 'subject', 'title', 'updatedAt', 'videoHeaderUrl'] as const
+  $columns = LamsMasterCanvasSchema.$columns
+  @column()
+  declare authors: any
+  @column()
+  declare bu: string
+  @column()
+  declare code: string
+  @column()
+  declare courseNo: string
+  @column()
+  declare courseType: string
+  @column()
+  declare courseVersion: string
+  @column()
+  declare coverImageUrl: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column()
+  declare dayToFinishMilestone: number | null
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: any
+  @column()
+  declare grade: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare items: any
+  @column()
+  declare mode: string
+  @column()
+  declare note: string | null
+  @column()
+  declare permalink: string
+  @column()
+  declare rejectReason: string | null
+  @column()
+  declare status: string
+  @column()
+  declare subject: string
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare videoHeaderUrl: string | null
+}
+
+export class LamsMasterRecordAssetArchiveSchema extends BaseModel {
+  static $columns = ['assetId', 'createdAt', 'id', 'metadata'] as const
+  $columns = LamsMasterRecordAssetArchiveSchema.$columns
+  @column()
+  declare assetId: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare metadata: any
+}
+
+export class LamsMasterRecordAssetSchema extends BaseModel {
+  static $columns = ['archetypeId', 'articleTypeId', 'assetId', 'assetType', 'authorsId', 'bloomId', 'buId', 'categoryId', 'courseNumberId', 'courseTitleId', 'courseTypeId', 'createdAt', 'deletedAt', 'difficultyId', 'examFieldId', 'gradeId', 'id', 'indicatorId', 'lessonId', 'masterRecordId', 'modeId', 'moduleId', 'objectiveId', 'pisaId', 'questionTemplateNameId', 'questionTypeId', 'quizTypeId', 'subCategoryId', 'subjectGroupId', 'subjectId', 'subsectionTypeId', 'subtopicId', 'unitId', 'updatedAt', 'variantCodeId'] as const
+  $columns = LamsMasterRecordAssetSchema.$columns
+  @column()
+  declare archetypeId: number | null
+  @column()
+  declare articleTypeId: number | null
+  @column()
+  declare assetId: string
+  @column()
+  declare assetType: any
+  @column()
+  declare authorsId: number | null
+  @column()
+  declare bloomId: number | null
+  @column()
+  declare buId: number | null
+  @column()
+  declare categoryId: number | null
+  @column()
+  declare courseNumberId: number | null
+  @column()
+  declare courseTitleId: number | null
+  @column()
+  declare courseTypeId: number | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare difficultyId: number | null
+  @column()
+  declare examFieldId: number | null
+  @column()
+  declare gradeId: number | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare indicatorId: number | null
+  @column()
+  declare lessonId: number | null
+  @column()
+  declare masterRecordId: number
+  @column()
+  declare modeId: number | null
+  @column()
+  declare moduleId: number | null
+  @column()
+  declare objectiveId: number | null
+  @column()
+  declare pisaId: number | null
+  @column()
+  declare questionTemplateNameId: number | null
+  @column()
+  declare questionTypeId: number | null
+  @column()
+  declare quizTypeId: number | null
+  @column()
+  declare subCategoryId: number | null
+  @column()
+  declare subjectGroupId: number | null
+  @column()
+  declare subjectId: number | null
+  @column()
+  declare subsectionTypeId: number | null
+  @column()
+  declare subtopicId: number | null
+  @column()
+  declare unitId: number | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare variantCodeId: number | null
+}
+
+export class LamsMasterRecordClosureSchema extends BaseModel {
+  static $columns = ['ancestorId', 'createdAt', 'deletedAt', 'depth', 'descendantId', 'id', 'updatedAt'] as const
+  $columns = LamsMasterRecordClosureSchema.$columns
+  @column()
+  declare ancestorId: number
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare depth: number
+  @column()
+  declare descendantId: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterRecordRevisionSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'masterRecordId', 'revision', 'title', 'updatedAt', 'values'] as const
+  $columns = LamsMasterRecordRevisionSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare masterRecordId: string
+  @column()
+  declare revision: number
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare values: any | null
+}
+
+export class LamsMasterRecordV2TeamSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'masterRecordV2Id', 'teamId', 'updatedAt'] as const
+  $columns = LamsMasterRecordV2TeamSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare masterRecordV2Id: number
+  @column()
+  declare teamId: string | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsMasterRecordV2Schema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'masterRecordType', 'parentId', 'updatedAt', 'value'] as const
+  $columns = LamsMasterRecordV2Schema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare masterRecordType: any
+  @column()
+  declare parentId: number | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare value: string
+}
+
+export class LamsMasterRecordSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'refId', 'updatedAt'] as const
+  $columns = LamsMasterRecordSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare refId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsSolutionCanvasRevisionSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'idRevision', 'isLatest', 'masterCanvasId', 'revision', 'sections', 'solutionCanvasSection', 'updatedAt'] as const
+  $columns = LamsSolutionCanvasRevisionSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare idRevision: string
+  @column()
+  declare isLatest: boolean
+  @column()
+  declare masterCanvasId: string
+  @column()
+  declare revision: number
+  @column()
+  declare sections: any
+  @column()
+  declare solutionCanvasSection: any | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsSolutionCanvasSectionSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'problemNo', 'sectionId', 'solutionCanvasId', 'solutionId', 'updatedAt'] as const
+  $columns = LamsSolutionCanvasSectionSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare problemNo: number
+  @column()
+  declare sectionId: string
+  @column()
+  declare solutionCanvasId: string
+  @column()
+  declare solutionId: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsSolutionCanvasSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'masterCanvasId', 'sortingLevel', 'status', 'updatedAt'] as const
+  $columns = LamsSolutionCanvasSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare masterCanvasId: string
+  @column()
+  declare sortingLevel: string
+  @column()
+  declare status: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsVideoAssetFileRelationSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'updatedAt', 'videoAssetIdFileRevision', 'videoAssetIdRevision'] as const
+  $columns = LamsVideoAssetFileRelationSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare videoAssetIdFileRevision: string
+  @column({ isPrimary: true })
+  declare videoAssetIdRevision: string
+}
+
+export class LamsVideoAssetFileRevisionSchema extends BaseModel {
+  static $columns = ['bucket', 'contentType', 'coverImageUrl', 'createdAt', 'deletedAt', 'duration', 'filename', 'key', 'previewImageUrl', 'revision', 'size', 'updatedAt', 'url', 'versionId', 'videoAssetId'] as const
+  $columns = LamsVideoAssetFileRevisionSchema.$columns
+  @column()
+  declare bucket: string
+  @column()
+  declare contentType: string
+  @column()
+  declare coverImageUrl: string | null
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare duration: number | null
+  @column()
+  declare filename: string
+  @column()
+  declare key: string
+  @column()
+  declare previewImageUrl: string | null
+  @column()
+  declare revision: number
+  @column()
+  declare size: number | null
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column()
+  declare url: string | null
+  @column()
+  declare versionId: string
+  @column({ isPrimary: true })
+  declare videoAssetId: string
+}
+
+export class LamsVideoAssetRevisionSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'description', 'fileRevision', 'metadataRevision', 'revision', 'status', 'title', 'updatedAt', 'videoAssetId'] as const
+  $columns = LamsVideoAssetRevisionSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare description: string | null
+  @column()
+  declare fileRevision: number
+  @column()
+  declare metadataRevision: number
+  @column()
+  declare revision: number
+  @column()
+  declare status: string
+  @column()
+  declare title: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+  @column({ isPrimary: true })
+  declare videoAssetId: string
+}
+
+export class LamsVideoAssetVariantSchema extends BaseModel {
+  static $columns = ['combinedVideoAssetId', 'createdAt', 'deletedAt', 'duration', 'learningMode', 'liveSubsectionId', 'liveSubsectionIdLearningMode', 'playerUrl', 'updatedAt'] as const
+  $columns = LamsVideoAssetVariantSchema.$columns
+  @column()
+  declare combinedVideoAssetId: string
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column()
+  declare duration: number
+  @column()
+  declare learningMode: string
+  @column()
+  declare liveSubsectionId: string
+  @column({ isPrimary: true })
+  declare liveSubsectionIdLearningMode: string
+  @column()
+  declare playerUrl: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LamsVideoAssetSchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'latestRevision', 'order', 'uniqueName', 'updatedAt'] as const
+  $columns = LamsVideoAssetSchema.$columns
+  @column.dateTime()
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare latestRevision: number
+  @column()
+  declare order: number
+  @column()
+  declare uniqueName: string
+  @column.dateTime()
+  declare updatedAt: DateTime
+}
+
+export class LtiPlatformToolSchema extends BaseModel {
+  static $columns = ['baseurl', 'clientid', 'createdat', 'deploymentid', 'id', 'initiateloginurl', 'key', 'keytype', 'name', 'redirectionuris', 'tooldomain', 'updatedat'] as const
+  $columns = LtiPlatformToolSchema.$columns
+  @column()
+  declare baseurl: string | null
+  @column()
+  declare clientid: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare deploymentid: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare initiateloginurl: string | null
+  @column()
+  declare key: string | null
+  @column()
+  declare keytype: string | null
+  @column()
+  declare name: string | null
+  @column()
+  declare redirectionuris: string | null
+  @column()
+  declare tooldomain: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+}
+
+export class LtiToolUserSchema extends BaseModel {
+  static $columns = ['createdat', 'externalid', 'id', 'platformcode', 'platforminfo', 'updatedat', 'userid'] as const
+  $columns = LtiToolUserSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare externalid: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare platformcode: string | null
+  @column()
+  declare platforminfo: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare userid: string | null
+}
+
+export class MessageemaillogSchema extends BaseModel {
+  static $columns = ['createdat', 'id', 'message', 'result', 'type'] as const
+  $columns = MessageemaillogSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare message: string | null
+  @column()
+  declare result: string | null
+  @column()
+  declare type: string | null
+}
+
+export class MessageSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'senderId', 'senderType', 'text', 'ticketId', 'updatedAt'] as const
+  $columns = MessageSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare senderId: number | null
+  @column()
+  declare senderType: string
+  @column()
+  declare text: string
+  @column()
+  declare ticketId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class OauthaccesstokenSchema extends BaseModel {
+  static $columns = ['appid', 'authorizationcode', 'expiredat', 'expiresin', 'hash', 'id', 'issuedat', 'parameters', 'refreshtoken', 'scopes', 'tokentype', 'userid'] as const
+  $columns = OauthaccesstokenSchema.$columns
+  @column()
+  declare appid: string | null
+  @column()
+  declare authorizationcode: string | null
+  @column.dateTime()
+  declare expiredat: DateTime | null
+  @column()
+  declare expiresin: number | null
+  @column()
+  declare hash: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare issuedat: DateTime | null
+  @column()
+  declare parameters: string | null
+  @column()
+  declare refreshtoken: string | null
+  @column()
+  declare scopes: string | null
+  @column()
+  declare tokentype: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class OauthauthorizationcodeSchema extends BaseModel {
+  static $columns = ['appid', 'expiredat', 'expiresin', 'hash', 'id', 'issuedat', 'parameters', 'redirecturi', 'scopes', 'used', 'userid'] as const
+  $columns = OauthauthorizationcodeSchema.$columns
+  @column()
+  declare appid: string | null
+  @column.dateTime()
+  declare expiredat: DateTime | null
+  @column()
+  declare expiresin: number | null
+  @column()
+  declare hash: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare issuedat: DateTime | null
+  @column()
+  declare parameters: string | null
+  @column()
+  declare redirecturi: string | null
+  @column()
+  declare scopes: string | null
+  @column()
+  declare used: boolean | null
+  @column()
+  declare userid: string | null
+}
+
+export class OauthclientapplicationSchema extends BaseModel {
+  static $columns = ['anonymousallowed', 'authenticationenabled', 'authenticationschemes', 'callbackurls', 'clientkey', 'clientname', 'clientsecret', 'clienttype', 'clienturi', 'collaborators', 'contacts', 'created', 'description', 'email', 'emailverified', 'granttypes', 'icon', 'id', 'javascriptkey', 'jwks', 'jwksuri', 'logouri', 'masterkey', 'modified', 'name', 'owner', 'permissions', 'policyuri', 'pushsettings', 'realm', 'redirecturis', 'responsetypes', 'restapikey', 'scopes', 'softwareid', 'softwareversion', 'status', 'tokenendpointauthmethod', 'tokentype', 'tosuri', 'url', 'windowskey'] as const
+  $columns = OauthclientapplicationSchema.$columns
+  @column()
+  declare anonymousallowed: boolean | null
+  @column()
+  declare authenticationenabled: boolean | null
+  @column()
+  declare authenticationschemes: string | null
+  @column()
+  declare callbackurls: string | null
+  @column()
+  declare clientkey: string | null
+  @column()
+  declare clientname: string | null
+  @column()
+  declare clientsecret: string | null
+  @column()
+  declare clienttype: string | null
+  @column()
+  declare clienturi: string | null
+  @column()
+  declare collaborators: string | null
+  @column()
+  declare contacts: string | null
+  @column.dateTime()
+  declare created: DateTime | null
+  @column()
+  declare description: string | null
+  @column()
+  declare email: string | null
+  @column()
+  declare emailverified: boolean | null
+  @column()
+  declare granttypes: string | null
+  @column()
+  declare icon: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare javascriptkey: string | null
+  @column()
+  declare jwks: string | null
+  @column()
+  declare jwksuri: string | null
+  @column()
+  declare logouri: string | null
+  @column()
+  declare masterkey: string | null
+  @column.dateTime()
+  declare modified: DateTime | null
+  @column()
+  declare name: string
+  @column()
+  declare owner: string | null
+  @column()
+  declare permissions: string | null
+  @column()
+  declare policyuri: string | null
+  @column()
+  declare pushsettings: string | null
+  @column()
+  declare realm: string | null
+  @column()
+  declare redirecturis: string | null
+  @column()
+  declare responsetypes: string | null
+  @column()
+  declare restapikey: string | null
+  @column()
+  declare scopes: string | null
+  @column()
+  declare softwareid: string | null
+  @column()
+  declare softwareversion: string | null
+  @column()
+  declare status: string | null
+  @column()
+  declare tokenendpointauthmethod: string | null
+  @column()
+  declare tokentype: string | null
+  @column()
+  declare tosuri: string | null
+  @column()
+  declare url: string | null
+  @column()
+  declare windowskey: string | null
+}
+
+export class OauthpermissionSchema extends BaseModel {
+  static $columns = ['appid', 'expiredat', 'expiresin', 'id', 'issuedat', 'scopes', 'userid'] as const
+  $columns = OauthpermissionSchema.$columns
+  @column()
+  declare appid: string | null
+  @column.dateTime()
+  declare expiredat: DateTime | null
+  @column()
+  declare expiresin: number | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare issuedat: DateTime | null
+  @column()
+  declare scopes: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class OauthscopeSchema extends BaseModel {
+  static $columns = ['description', 'iconurl', 'scope', 'ttl'] as const
+  $columns = OauthscopeSchema.$columns
+  @column()
+  declare description: string | null
+  @column()
+  declare iconurl: string | null
+  @column({ isPrimary: true })
+  declare scope: string
+  @column()
+  declare ttl: number | null
+}
+
+export class OauthscopemappingSchema extends BaseModel {
+  static $columns = ['id', 'route', 'scope'] as const
+  $columns = OauthscopemappingSchema.$columns
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare route: string | null
+  @column()
+  declare scope: string | null
+}
+
+export class OrganizationSchema extends BaseModel {
+  static $columns = ['active', 'createdat', 'createdby', 'deletedat', 'deletedby', 'domainname', 'emailtemplate', 'id', 'organizationname', 'revision', 'updatedat', 'updatedby'] as const
+  $columns = OrganizationSchema.$columns
+  @column()
+  declare active: boolean | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare domainname: string | null
+  @column()
+  declare emailtemplate: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare organizationname: string | null
+  @column()
+  declare revision: number | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class OrganizationEmailSchema extends BaseModel {
+  static $columns = ['createdat', 'createdby', 'deletedat', 'deletedby', 'email', 'id', 'isblacklist', 'organizationid', 'updatedat', 'updatedby'] as const
+  $columns = OrganizationEmailSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare email: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isblacklist: boolean | null
+  @column()
+  declare organizationid: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class QuestionMetaSchema extends BaseModel {
+  static $columns = ['choices', 'createdAt', 'hint', 'id', 'question', 'solution', 'ticketId', 'updatedAt'] as const
+  $columns = QuestionMetaSchema.$columns
+  @column()
+  declare choices: any
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare hint: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare question: string
+  @column()
+  declare solution: string
+  @column()
+  declare ticketId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class RelatedTopicSchema extends BaseModel {
+  static $columns = ['content', 'createdAt', 'id', 'name', 'questionMetaId', 'updatedAt'] as const
+  $columns = RelatedTopicSchema.$columns
+  @column()
+  declare content: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column()
+  declare questionMetaId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class RoleSchema extends BaseModel {
+  static $columns = ['created', 'description', 'id', 'modified', 'name'] as const
+  $columns = RoleSchema.$columns
+  @column.dateTime()
+  declare created: DateTime | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare modified: DateTime | null
+  @column()
+  declare name: string
+}
+
+export class RolemappingSchema extends BaseModel {
+  static $columns = ['created', 'id', 'modified', 'principalid', 'principaltype', 'roleid'] as const
+  $columns = RolemappingSchema.$columns
+  @column.dateTime()
+  declare created: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare modified: DateTime | null
+  @column()
+  declare principalid: string | null
+  @column()
+  declare principaltype: string | null
+  @column()
+  declare roleid: number | null
+}
+
+export class TeamSchema extends BaseModel {
+  static $columns = ['createdat', 'createdby', 'deletedat', 'deletedby', 'description', 'id', 'name', 'updatedat', 'updatedby'] as const
+  $columns = TeamSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+}
+
+export class TestPermissionSchema extends BaseModel {
+  static $columns = ['id', 'name'] as const
+  $columns = TestPermissionSchema.$columns
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+}
+
+export class TicketSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'question', 'source', 'status', 'studentId', 'subject', 'updatedAt'] as const
+  $columns = TicketSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare question: string
+  @column()
+  declare source: string
+  @column()
+  declare status: string
+  @column()
+  declare studentId: number
+  @column()
+  declare subject: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['additional1', 'additional10', 'additional2', 'additional3', 'additional4', 'additional5', 'additional6', 'additional7', 'additional8', 'additional9', 'additionalinfo', 'apiuser', 'consecutivefailedloginattempt', 'consecutivetemporarydisabled', 'contactinfo', 'createdat', 'createdby', 'deletionrequestedat', 'email', 'emailverified', 'firstname', 'id', 'image', 'isdisabled', 'ispassportuser', 'ispasswordcreatedbyuser', 'isverified', 'kycverificationstatus', 'lastloginat', 'lastname', 'nationality', 'newemail', 'organizationid', 'organizationinfo', 'passportemail', 'password', 'permalink', 'preference', 'profileprivacy', 'realm', 'referenceid', 'temporarydisabledat', 'updatedat', 'updatedby', 'userconsent', 'username', 'verificationtoken'] as const
+  $columns = UserSchema.$columns
+  @column()
+  declare additional1: string | null
+  @column()
+  declare additional10: string | null
+  @column()
+  declare additional2: string | null
+  @column()
+  declare additional3: string | null
+  @column()
+  declare additional4: string | null
+  @column()
+  declare additional5: string | null
+  @column()
+  declare additional6: string | null
+  @column()
+  declare additional7: string | null
+  @column()
+  declare additional8: string | null
+  @column()
+  declare additional9: string | null
+  @column()
+  declare additionalinfo: string | null
+  @column()
+  declare apiuser: boolean | null
+  @column()
+  declare consecutivefailedloginattempt: number | null
+  @column()
+  declare consecutivetemporarydisabled: number | null
+  @column()
+  declare contactinfo: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletionrequestedat: DateTime | null
+  @column()
+  declare email: string | null
+  @column()
+  declare emailverified: boolean | null
+  @column()
+  declare firstname: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare image: string | null
+  @column()
+  declare isdisabled: boolean | null
+  @column()
+  declare ispassportuser: boolean | null
+  @column()
+  declare ispasswordcreatedbyuser: boolean | null
+  @column()
+  declare isverified: boolean | null
+  @column()
+  declare kycverificationstatus: string | null
+  @column.dateTime()
+  declare lastloginat: DateTime | null
+  @column()
+  declare lastname: string | null
+  @column()
+  declare nationality: string | null
+  @column()
+  declare newemail: string | null
+  @column()
+  declare organizationid: string | null
+  @column()
+  declare organizationinfo: string | null
+  @column()
+  declare passportemail: string | null
+  @column({ serializeAs: null })
+  declare password: string | null
+  @column()
+  declare permalink: string | null
+  @column()
+  declare preference: string | null
+  @column()
+  declare profileprivacy: string | null
+  @column()
+  declare realm: string | null
+  @column()
+  declare referenceid: string | null
+  @column.dateTime()
+  declare temporarydisabledat: DateTime | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+  @column()
+  declare userconsent: string | null
+  @column()
+  declare username: string | null
+  @column()
+  declare verificationtoken: string | null
+}
+
+export class UserAppRoleItemSchema extends BaseModel {
+  static $columns = ['approleid', 'createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'updatedat', 'updatedby', 'userid'] as const
+  $columns = UserAppRoleItemSchema.$columns
+  @column()
+  declare approleid: string | null
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class UserTeamItemSchema extends BaseModel {
+  static $columns = ['createdat', 'createdby', 'deletedat', 'deletedby', 'id', 'teamid', 'updatedat', 'updatedby', 'userid'] as const
+  $columns = UserTeamItemSchema.$columns
+  @column.dateTime()
+  declare createdat: DateTime | null
+  @column()
+  declare createdby: string | null
+  @column.dateTime()
+  declare deletedat: DateTime | null
+  @column()
+  declare deletedby: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare teamid: string | null
+  @column.dateTime()
+  declare updatedat: DateTime | null
+  @column()
+  declare updatedby: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class UsercredentialSchema extends BaseModel {
+  static $columns = ['authscheme', 'created', 'credentials', 'externalid', 'id', 'modified', 'profile', 'provider', 'userid'] as const
+  $columns = UsercredentialSchema.$columns
+  @column()
+  declare authscheme: string | null
+  @column.dateTime()
+  declare created: DateTime | null
+  @column()
+  declare credentials: string | null
+  @column()
+  declare externalid: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare modified: DateTime | null
+  @column()
+  declare profile: string | null
+  @column()
+  declare provider: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class UseridentitySchema extends BaseModel {
+  static $columns = ['authscheme', 'created', 'credentials', 'externalid', 'id', 'modified', 'profile', 'provider', 'userid'] as const
+  $columns = UseridentitySchema.$columns
+  @column()
+  declare authscheme: string | null
+  @column.dateTime()
+  declare created: DateTime | null
+  @column()
+  declare credentials: string | null
+  @column()
+  declare externalid: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare modified: DateTime | null
+  @column()
+  declare profile: string | null
+  @column()
+  declare provider: string | null
+  @column()
+  declare userid: string | null
+}
+
+export class UserSchema extends BaseModel {
+  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -45,6 +1740,19 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare role: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+}
+
+export class UsersecuretokenSchema extends BaseModel {
+  static $columns = ['created', 'id', 'ttl'] as const
+  $columns = UsersecuretokenSchema.$columns
+  @column.dateTime()
+  declare created: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare ttl: number | null
 }
