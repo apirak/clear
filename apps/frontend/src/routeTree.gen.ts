@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeacherRouteImport } from './routes/teacher'
+import { Route as StudentRouteImport } from './routes/student'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrototypeTeacherViewRouteImport } from './routes/prototype.teacher-view'
 
+const TeacherRoute = TeacherRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRoute = StudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -32,35 +44,68 @@ const PrototypeTeacherViewRoute = PrototypeTeacherViewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/student': typeof StudentRoute
+  '/teacher': typeof TeacherRoute
   '/prototype/teacher-view': typeof PrototypeTeacherViewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/student': typeof StudentRoute
+  '/teacher': typeof TeacherRoute
   '/prototype/teacher-view': typeof PrototypeTeacherViewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/student': typeof StudentRoute
+  '/teacher': typeof TeacherRoute
   '/prototype/teacher-view': typeof PrototypeTeacherViewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/prototype/teacher-view'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/student'
+    | '/teacher'
+    | '/prototype/teacher-view'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/prototype/teacher-view'
-  id: '__root__' | '/' | '/about' | '/prototype/teacher-view'
+  to: '/' | '/about' | '/student' | '/teacher' | '/prototype/teacher-view'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/student'
+    | '/teacher'
+    | '/prototype/teacher-view'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  StudentRoute: typeof StudentRoute
+  TeacherRoute: typeof TeacherRoute
   PrototypeTeacherViewRoute: typeof PrototypeTeacherViewRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/teacher': {
+      id: '/teacher'
+      path: '/teacher'
+      fullPath: '/teacher'
+      preLoaderRoute: typeof TeacherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -88,6 +133,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  StudentRoute: StudentRoute,
+  TeacherRoute: TeacherRoute,
   PrototypeTeacherViewRoute: PrototypeTeacherViewRoute,
 }
 export const routeTree = rootRouteImport
